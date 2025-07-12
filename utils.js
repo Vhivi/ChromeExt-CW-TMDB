@@ -7,6 +7,7 @@
  * @returns {{type: string, id: string}|null}
  */
 function extractTypeAndId(url) {
+  if (typeof url !== 'string') return null;
   const regex = /https:\/\/www\.captainwatch\.com\/(serie|film|artiste)\/(\d+)/;
   const match = url.match(regex);
   if (!match) return null;
