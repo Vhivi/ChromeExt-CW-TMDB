@@ -54,4 +54,14 @@ function generateTMDBUrl(url) {
   return `https://www.themoviedb.org/${tmdbType}/${data.id}`;
 }
 
-module.exports = { extractTypeAndId, mapTypeToTMDB, generateTMDBUrl };
+// Pour compatibilité navigateur/Chrome Extension
+if (typeof window !== 'undefined') {
+  window.extractTypeAndId = extractTypeAndId;
+  window.mapTypeToTMDB = mapTypeToTMDB;
+  window.generateTMDBUrl = generateTMDBUrl;
+}
+if (typeof self !== 'undefined') {
+  self.extractTypeAndId = extractTypeAndId;
+  self.mapTypeToTMDB = mapTypeToTMDB;
+  self.generateTMDBUrl = generateTMDBUrl;
+}
