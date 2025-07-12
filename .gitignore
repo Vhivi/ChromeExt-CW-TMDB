@@ -1,0 +1,15 @@
+# Fichiers et dossiers à ignorer pour la publication
+node_modules/
+.DS_Store
+*.log
+npm-debug.log*
+.env
+.vscode/
+package-lock.json
+# Fichiers temporaires et de test
+*.test.js
+JEST.md
+# Fichiers système
+Thumbs.db
+# Fichiers de configuration IDE
+.github/
