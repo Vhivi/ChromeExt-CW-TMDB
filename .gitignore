@@ -8,6 +8,7 @@ npm-debug.log*
 package-lock.json
 # Fichiers temporaires et de test
 JEST.md
+ext/
 # Fichiers système
 Thumbs.db
 # Fichiers de configuration IDE
