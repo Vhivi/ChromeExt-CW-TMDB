@@ -1,15 +1,18 @@
 {
   "name": "chromeext-cw-tmdb",
-  "version": "1.0.0",
+  "version": "1.0.0-beta",
   "description": "Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, etc.) qui permet, lorsqu’on visite une page CaptainWatch, de générer et d’ouvrir l’URL correspondante sur The Movie Database (TMDB).",
   "main": "background.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "sync-version": "node sync-version.js",
+    "release": "standard-version"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^30.0.4"
+    "jest": "^30.0.4",
+    "standard-version": "^9.5.0"
   }
 }
