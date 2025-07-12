@@ -82,6 +82,7 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
    ![Extension activée](screenshots/chrome-activate.jpg)
 7. Épinglez l’icône de l’extension dans la barre d’outils pour un accès rapide.
    ![Barre d’outils](screenshots/chrome-pin.jpg)
-8. Profitez de l’extension ! En dehors des pages CaptainWatch, l’icône sera rouge et inactive. Sur une page valide, elle deviendra verte et cliquable.
+8. Profitez de l’extension ! En dehors des pages CaptainWatch, l’icône sera rouge et inactive.
    ![Extension inactive](screenshots/chrome-enjoy.jpg)
+9. Sur une page valide, elle deviendra verte et cliquable.
    ![Extension active](screenshots/chrome-click.jpg)
