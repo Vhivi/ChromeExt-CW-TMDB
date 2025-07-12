@@ -75,14 +75,19 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
    - **Edge** : `edge://extensions/`
    - Autres navigateurs Chromium : cherchez « extensions » dans la barre d’adresse.
 4. Activez le « Mode développeur » (généralement en haut à droite).
+
    ![Mode développeur](screenshots/chrome-dev-mode.jpg)
 5. Cliquez sur « Charger l’extension non empaquetée » et sélectionnez le dossier décompressé.
+
    ![Charger l’extension](screenshots/chrome-load.jpg)
 6. L’extension devrait apparaître dans la liste avec son icône. Assurez-vous qu’elle est activée.
+
    ![Extension activée](screenshots/chrome-activate.jpg)
 7. Épinglez l’icône de l’extension dans la barre d’outils pour un accès rapide.
+
    ![Barre d’outils](screenshots/chrome-pin.jpg)
 8. Profitez de l’extension ! En dehors des pages CaptainWatch, l’icône sera rouge et inactive.
+
    ![Extension inactive](screenshots/chrome-enjoy.jpg)
 9. Sur une page valide, elle deviendra verte et cliquable.
 
