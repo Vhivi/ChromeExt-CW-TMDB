@@ -3,7 +3,11 @@
   "name": "CaptainWatch → TMDB",
   "version": "1.0.0",
   "description": "Transforme l’URL CaptainWatch de l’onglet courant en URL TMDB correspondante.",
-  "permissions": ["tabs", "activeTab", "scripting"],
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
   "host_permissions": [
     "https://www.captainwatch.com/serie/*",
     "https://www.captainwatch.com/film/*",
