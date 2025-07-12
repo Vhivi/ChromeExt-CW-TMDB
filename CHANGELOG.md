@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.1](https://github.com/Vhivi/ChromeExt-CW-TMDB/compare/v2.0.0...v2.0.1) (2025-07-12)
+
+### Features
+
+* Ajouter une nouvelle icône 48x48 pour l'extension ([9fc81ff](https://github.com/Vhivi/ChromeExt-CW-TMDB/commit/9fc81ff4070d332c68c96f40a3608ad6bef03498))
+
+### Bug Fixes
+
+* Rajouter des permissions d'hôte pour TMDB dans le manifeste ([5ebc336](https://github.com/Vhivi/ChromeExt-CW-TMDB/commit/5ebc3366b867f336e6c04db6373a874ce65ef0a7))
+
 ## [2.0.0](https://github.com/Vhivi/ChromeExt-CW-TMDB/compare/v1.0.0...v2.0.0) (2025-07-12)
 
 ### Features
