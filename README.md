@@ -6,7 +6,7 @@
   - [Table des matières](#table-des-matières)
   - [Objectif](#objectif)
   - [Fonctionnalités principales](#fonctionnalités-principales)
-  - [Exemple](#exemple)
+  - [Exemples](#exemples)
   - [Technologies utilisées](#technologies-utilisées)
   - [Structure du projet](#structure-du-projet)
   - [TODO – Étapes de développement](#todo--étapes-de-développement)
@@ -19,27 +19,39 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 
 ## Fonctionnalités principales
 
-- L’extension est active uniquement si l’onglet courant correspond à une URL CaptainWatch.
-- Un bouton d’action (icône dans la barre d’outils) permet de transformer l’URL CaptainWatch en URL TMDB et d’ouvrir cette dernière dans un nouvel onglet.
-- L’icône change dynamiquement : verte si l’extension est utilisable, rouge sinon (icônes dans le dossier `icons`).
-- Extraction automatique du type de contenu ("serie", "film", "artiste") et de l’identifiant numérique depuis l’URL CaptainWatch.
-- Génération de l’URL TMDB correspondante :
-  - `serie` → `tv`
-  - `film` → `movie`
-  - `artiste` → `person`
-- Ouverture de l’URL TMDB dans un nouvel onglet.
+- Conversion bidirectionnelle :
+  - CaptainWatch → TMDB
+  - TMDB → CaptainWatch
+- L’extension est active uniquement si l’onglet courant correspond à une URL CaptainWatch **ou** TMDB valide.
+- Un bouton d’action (icône dans la barre d’outils) permet de transformer l’URL CaptainWatch en URL TMDB, ou l’URL TMDB en URL CaptainWatch, et d’ouvrir la nouvelle adresse dans un nouvel onglet.
+- L’icône change dynamiquement selon le contexte :
+  - Icônes CaptainWatch (verte/rouge) sur les pages CaptainWatch
+  - Icônes TMDB (verte/rouge) sur les pages TMDB
+- Extraction automatique du type de contenu ("serie", "film", "artiste" ou "tv", "movie", "person") et de l’identifiant numérique depuis l’URL.
+- Génération de l’URL correspondante :
+  - CaptainWatch :
+    - `serie` → `tv`
+    - `film` → `movie`
+    - `artiste` → `person`
+  - TMDB :
+    - `tv` → `serie`
+    - `movie` → `film`
+    - `person` → `artiste` (⚠️ Pour les artistes, l’URL CaptainWatch doit se terminer par `/-`)
+- Ouverture de l’URL générée dans un nouvel onglet.
 - Structure modulaire : la logique métier est centralisée dans `utils.js` et utilisée dans `background.js`.
 - Tests unitaires avec Jest sur la logique métier (`utils.test.js`).
 - Fichier `.gitignore` pour la publication propre du projet.
 
-## Exemple
+## Exemples
 
-- CaptainWatch : `https://www.captainwatch.com/serie/93405/squid-game`
-- TMDB : `https://www.themoviedb.org/tv/93405`
-- CaptainWatch : `https://www.captainwatch.com/film/27205/inception`
-- TMDB : `https://www.themoviedb.org/movie/27205`
-- CaptainWatch : `https://www.captainwatch.com/artiste/138/quentin-tarantino`
-- TMDB : `https://www.themoviedb.org/person/138`
+- CaptainWatch → TMDB :
+  - `https://www.captainwatch.com/serie/93405/squid-game` → `https://www.themoviedb.org/tv/93405`
+  - `https://www.captainwatch.com/film/27205/inception` → `https://www.themoviedb.org/movie/27205`
+  - `https://www.captainwatch.com/artiste/138/quentin-tarantino` → `https://www.themoviedb.org/person/138`
+- TMDB → CaptainWatch :
+  - `https://www.themoviedb.org/tv/93405` → `https://www.captainwatch.com/serie/93405/`
+  - `https://www.themoviedb.org/movie/27205` → `https://www.captainwatch.com/film/27205/`
+  - `https://www.themoviedb.org/person/138` → `https://www.captainwatch.com/artiste/138/-` (⚠️ `/person` → `/artiste/-`)
 
 ## Technologies utilisées
 
@@ -51,10 +63,10 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 ## Structure du projet
 
 - `manifest.json` : Déclaration de l’extension
-- `background.js` : Gestion de l’activation, de l’action du bouton et du changement d’icône
-- `utils.js` : Fonctions métier (extraction, mapping, génération d’URL)
+- `background.js` : Gestion de l’activation, de l’action du bouton et du changement d’icône contextuel (CaptainWatch/TMDB)
+- `utils.js` : Fonctions métier (extraction, mapping, génération d’URL dans les deux sens, gestion du cas artiste)
 - `test/` : Dossier des tests unitaires Jest (ex : utils.test.js)
-- `icons/` : Icônes verte et rouge (ex : icon48-green.png, icon48-red.png)
+- `icons/` : Icônes verte et rouge pour CaptainWatch et TMDB (ex : icon48-green.png, icon48-tmdb-green.png, etc.)
 - `.gitignore` : Fichiers à exclure du dépôt
 - `README.md` : Documentation et instructions
 - `screenshots/` : Captures d’écran pour la documentation
@@ -77,6 +89,9 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 - [x] Faire les captures d’écran pour la documentation
 - [x] Mettre à jour le README avec les instructions d’installation
 - [x] Préparer une release pour distribution restreinte
+- [x] Ajouter la conversion TMDB → CaptainWatch
+- [x] Gérer le cas particulier `/person` → `/artiste/-`
+- [x] Changement d’icônes contextuelles (TMDB/CaptainWatch)
 
 ## Instructions d’installation
 
