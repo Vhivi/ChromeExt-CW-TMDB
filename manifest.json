@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "CaptainWatch → TMDB",
-  "version": "1.0.0",
+  "version": "1.0.0-beta",
   "description": "Transforme l’URL CaptainWatch de l’onglet courant en URL TMDB correspondante.",
   "permissions": [
     "tabs",

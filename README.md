@@ -18,7 +18,6 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 - Structure modulaire : la logique métier est centralisée dans `utils.js` et utilisée dans `background.js`.
 - Tests unitaires avec Jest sur la logique métier (`utils.test.js`).
 - Fichier `.gitignore` pour la publication propre du projet.
-- La popup est définitivement abandonnée.
 
 ## Exemple
 
@@ -45,6 +44,7 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 - `icons/` : Icônes verte et rouge (ex : icon48-green.png, icon48-red.png)
 - `.gitignore` : Fichiers à exclure du dépôt
 - `README.md` : Documentation et instructions
+- `screenshots/` : Captures d’écran pour la documentation
 
 ## TODO – Étapes de développement
 
@@ -61,6 +61,9 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 - [x] Finaliser et maintenir la documentation (README)
 - [x] Adapter les icônes si besoin (tailles, couleurs)
 - [x] Nettoyer le projet
+- [ ] Faire les captures d’écran pour la documentation
+- [ ] Mettre à jour le README avec les instructions d’installation
+- [ ] Préparer une release pour distribution restreinte
 
 ## Instructions d’installation
 
