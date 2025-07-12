@@ -54,7 +54,10 @@ function generateTMDBUrl(url) {
   return `https://www.themoviedb.org/${tmdbType}/${data.id}`;
 }
 
-// Pour compatibilité navigateur/Chrome Extension
+// Exportation universelle : Node.js (Jest) et navigateur (Chrome Extension)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { extractTypeAndId, mapTypeToTMDB, generateTMDBUrl };
+}
 if (typeof window !== 'undefined') {
   window.extractTypeAndId = extractTypeAndId;
   window.mapTypeToTMDB = mapTypeToTMDB;

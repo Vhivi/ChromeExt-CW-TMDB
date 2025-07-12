@@ -65,4 +65,3 @@ describe('generateTMDBUrl', () => {
     expect(generateTMDBUrl('https://www.google.com')).toBeNull();
   });
 });
-// ...existing code...
