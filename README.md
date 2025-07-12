@@ -57,10 +57,10 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 - [x] Centraliser la logique métier dans `utils.js` et l’utiliser dans `background.js`
 - [x] Ajouter des tests unitaires avec Jest (`utils.test.js`)
 - [x] Ajouter un fichier `.gitignore` pour la publication
-- [ ] Tester le fonctionnement sur différents cas d’URL
-- [ ] Finaliser et maintenir la documentation (README)
-- [ ] Adapter les icônes si besoin (tailles, couleurs)
-- [ ] Nettoyer le projet (suppression des fichiers inutiles, popup abandonnée)
+- [x] Tester le fonctionnement sur différents cas d’URL
+- [x] Finaliser et maintenir la documentation (README)
+- [x] Adapter les icônes si besoin (tailles, couleurs)
+- [x] Nettoyer le projet
 
 ## Instructions d’installation
 
