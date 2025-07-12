@@ -56,8 +56,6 @@ function generateCaptainWatchUrl(url) {
   }
   return `https://www.captainwatch.com/${cwType}/${data.id}/`;
 }
-// utils.js
-// Fonctions métier pour l’extension CaptainWatch → TMDB
 
 /**
  * Extrait le type de contenu (serie, film, artiste) et l’identifiant numérique d’une URL CaptainWatch.
