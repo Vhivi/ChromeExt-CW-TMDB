@@ -1,5 +1,18 @@
 # Extension Chrome : CaptainWatch → TMDB
 
+## Table des matières
+
+- [Extension Chrome : CaptainWatch → TMDB](#extension-chrome--captainwatch--tmdb)
+  - [Table des matières](#table-des-matières)
+  - [Objectif](#objectif)
+  - [Fonctionnalités principales](#fonctionnalités-principales)
+  - [Exemple](#exemple)
+  - [Technologies utilisées](#technologies-utilisées)
+  - [Structure du projet](#structure-du-projet)
+  - [TODO – Étapes de développement](#todo--étapes-de-développement)
+  - [Instructions d’installation](#instructions-dinstallation)
+    - [Installation au format `.zip` (mode développeur)](#installation-au-format-zip-mode-développeur)
+
 ## Objectif
 
 Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, etc.) qui permet, lorsqu’on visite une page CaptainWatch, de générer et d’ouvrir l’URL correspondante sur The Movie Database (TMDB).
