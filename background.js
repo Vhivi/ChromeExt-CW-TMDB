@@ -20,11 +20,17 @@
  */
 importScripts('utils.js');
 
-const iconsActive = {
+const iconsCWActive = {
   48: 'icons/icon48-green.png'
 };
-const iconsInactive = {
+const iconsCWInactive = {
   48: 'icons/icon48-red.png'
+};
+const iconsTMDBActive = {
+  48: 'icons/icon48-tmdb-green.png'
+};
+const iconsTMDBInactive = {
+  48: 'icons/icon48-tmdb-red.png'
 };
 
 chrome.action.onClicked.addListener(async (tab) => {
@@ -33,24 +39,30 @@ chrome.action.onClicked.addListener(async (tab) => {
    * L’URL TMDB (The Movie Database) générée pour l’onglet courant.
    * @type {string}
    */
-  const tmdbUrl = generateTMDBUrl(tab.url);
-  if (!tmdbUrl) return;
-  chrome.tabs.create({ url: tmdbUrl });
+    // Si CaptainWatch → TMDB
+    const tmdbUrl = generateTMDBUrl(tab.url);
+    if (tmdbUrl) {
+      chrome.tabs.create({ url: tmdbUrl });
+      return;
+    }
+    // Si TMDB → CaptainWatch
+    const cwUrl = generateCaptainWatchUrl(tab.url);
+    if (cwUrl) {
+      chrome.tabs.create({ url: cwUrl });
+      return;
+    }
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (!tab.url) return;
-  /**
-   * Contient le type et l’ID extraits de l’URL de l’onglet donné.
-   * @type {{ type: string, id: string }}
-   */
-  const data = extractTypeAndId(tab.url);
-  if (data) {
+  const isCaptainWatch = extractTypeAndId(tab.url) !== null;
+  const isTMDB = extractTypeAndIdFromTMDB(tab.url) !== null;
+  if (isCaptainWatch || isTMDB) {
     chrome.action.enable(tabId);
-    updateIcon(tabId, true);
+    updateIcon(tabId, true, isTMDB);
   } else {
     chrome.action.disable(tabId);
-    updateIcon(tabId, false);
+    updateIcon(tabId, false, isTMDB);
   }
 });
 
@@ -58,7 +70,10 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.action.disable();
   chrome.tabs.query({}, (tabs) => {
     for (const tab of tabs) {
-      if (tab.id) updateIcon(tab.id, false);
+      if (tab.id) {
+        const isTMDB = tab.url && extractTypeAndIdFromTMDB(tab.url) !== null;
+        updateIcon(tab.id, false, isTMDB);
+      }
     }
   });
 });
@@ -67,11 +82,18 @@ chrome.runtime.onInstalled.addListener(() => {
  * Met à jour l'icône du bouton pour l'onglet indiqué
  * @param {number} tabId Identifiant de l'onglet
  * @param {boolean} isActive True si l'onglet est actif, false sinon
+ * @param {boolean} isTMDB True si l’onglet est une page TMDB, false sinon
  */
-function updateIcon(tabId, isActive) {
+function updateIcon(tabId, isActive, isTMDB) {
+  let path;
+  if (isTMDB) {
+    path = isActive ? iconsTMDBActive : iconsTMDBInactive;
+  } else {
+    path = isActive ? iconsCWActive : iconsCWInactive;
+  }
   chrome.action.setIcon({
     tabId,
-    path: isActive ? iconsActive : iconsInactive
+    path
   });
 }
 
