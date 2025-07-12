@@ -85,4 +85,5 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 8. Profitez de l’extension ! En dehors des pages CaptainWatch, l’icône sera rouge et inactive.
    ![Extension inactive](screenshots/chrome-enjoy.jpg)
 9. Sur une page valide, elle deviendra verte et cliquable.
+
    ![Extension active](screenshots/chrome-click.jpg)
