@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "CaptainWatch → TMDB",
-  "version": "1.0.0",
-  "description": "Transforme l’URL CaptainWatch de l’onglet courant en URL TMDB correspondante.",
+  "version": "2.0.0",
+  "description": "Transforme l’URL CaptainWatch de l’onglet courant en URL TMDB correspondante et inversement.",
   "permissions": [
     "tabs",
     "activeTab",
@@ -17,7 +17,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Aller sur TMDB depuis CaptainWatch"
+    "default_title": "Aller sur TMDB depuis CaptainWatch ou vice-versa"
   },
   "icons": {
     "48": "icons/icon48.png"
