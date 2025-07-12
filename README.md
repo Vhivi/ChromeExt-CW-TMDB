@@ -61,9 +61,9 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 - [x] Finaliser et maintenir la documentation (README)
 - [x] Adapter les icônes si besoin (tailles, couleurs)
 - [x] Nettoyer le projet
-- [ ] Faire les captures d’écran pour la documentation
-- [ ] Mettre à jour le README avec les instructions d’installation
-- [ ] Préparer une release pour distribution restreinte
+- [x] Faire les captures d’écran pour la documentation
+- [x] Mettre à jour le README avec les instructions d’installation
+- [x] Préparer une release pour distribution restreinte
 
 ## Instructions d’installation
 
