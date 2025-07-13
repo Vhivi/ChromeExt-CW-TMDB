@@ -20,17 +20,16 @@
  */
 importScripts('utils.js');
 
-const iconsCWActive = {
-  48: 'icons/icon48-green.png'
-};
-const iconsCWInactive = {
-  48: 'icons/icon48-red.png'
-};
-const iconsTMDBActive = {
-  48: 'icons/icon48-tmdb-green.png'
-};
-const iconsTMDBInactive = {
-  48: 'icons/icon48-tmdb-red.png'
+// Centralisation des chemins d’icônes
+const ICONS = {
+  captainwatch: {
+    active: { 48: 'icons/icon48-green.png' },
+    inactive: { 48: 'icons/icon48-red.png' }
+  },
+  tmdb: {
+    active: { 48: 'icons/icon48-tmdb-green.png' },
+    inactive: { 48: 'icons/icon48-tmdb-red.png' }
+  }
 };
 
 chrome.action.onClicked.addListener(async (tab) => {
@@ -89,15 +88,11 @@ chrome.runtime.onInstalled.addListener(() => {
  * @param {boolean} isTMDB True si l’onglet est une page TMDB, false sinon
  */
 function updateIcon(tabId, isActive, isTMDB) {
-  let path;
-  if (isTMDB) {
-    path = isActive ? iconsTMDBActive : iconsTMDBInactive;
-  } else {
-    path = isActive ? iconsCWActive : iconsCWInactive;
-  }
+  const source = isTMDB ? 'tmdb' : 'captainwatch';
+  const state = isActive ? 'active' : 'inactive';
   chrome.action.setIcon({
     tabId,
-    path
+    path: ICONS[source][state]
   });
 }
 

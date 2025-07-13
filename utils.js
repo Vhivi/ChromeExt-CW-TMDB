@@ -1,21 +1,25 @@
 /**
- * Extrait le type TMDB (tv, movie, person) et l’ID d’une URL TMDB.
+ * Extrait le type et l’ID d’une URL CaptainWatch ou TMDB selon le domaine et les types attendus.
  *
- * @function extractTypeAndIdFromTMDB
- * @param {string} url - L’URL TMDB à analyser.
+ * @function extractTypeAndIdFromUrl
+ * @param {string} url - L’URL à analyser.
+ * @param {string} domain - Domaine attendu ("themoviedb.org" ou "captainwatch.com").
+ * @param {string[]} types - Tableau des types attendus (ex: ["tv", "movie", "person"] ou ["serie", "film", "artiste"]).
  * @returns {{type: string, id: string}|null} Un objet contenant le type et l’ID, ou null si l’URL n’est pas valide.
  *
  * @example
- * extractTypeAndIdFromTMDB('https://www.themoviedb.org/tv/93405');
+ * extractTypeAndIdFromUrl('https://www.themoviedb.org/tv/93405', 'themoviedb.org', ['tv','movie','person']);
  * // => { type: 'tv', id: '93405' }
+ * extractTypeAndIdFromUrl('https://www.captainwatch.com/serie/93405/squid-game', 'captainwatch.com', ['serie','film','artiste']);
+ * // => { type: 'serie', id: '93405' }
  */
-function extractTypeAndIdFromTMDB(url) {
-  if (typeof url !== 'string') {
+function extractTypeAndIdFromUrl(url, domain, types) {
+  if (typeof url !== 'string' || typeof domain !== 'string' || !Array.isArray(types)) {
     return null;
   }
-  // Regex : capture le type (tv|movie|person) et l’ID numérique (un ou plusieurs chiffres) dans une URL TMDB
-  // Exemple : https://www.themoviedb.org/movie/12345
-  const regex = /https:\/\/www\.themoviedb\.org\/(tv|movie|person)\/(\d+)/;
+  // Construction dynamique du regex selon le domaine et les types
+  const typesPattern = types.join('|');
+  const regex = new RegExp(`https://www\\.${domain}\\/(${typesPattern})\\/(\\d+)`);
   const match = url.match(regex);
   if (!match) {
     return null;
@@ -24,7 +28,23 @@ function extractTypeAndIdFromTMDB(url) {
 }
 
 /**
+ * Fonction générique pour mapper un type selon un objet de correspondance.
+ *
+ * @function mapType
+ * @param {string} type - Le type à convertir.
+ * @param {Object} mapping - Objet de correspondance (clé: source, valeur: cible).
+ * @returns {string|null} Le type mappé ou null si non reconnu.
+ *
+ * @example
+ * mapType('tv', { tv: 'serie', movie: 'film', person: 'artiste' }); // => 'serie'
+ */
+function mapType(type, mapping) {
+  return mapping[type] || null;
+}
+
+/**
  * Mappe le type TMDB (tv, movie, person) vers le type CaptainWatch (serie, film, artiste).
+ * Wrapper pour compatibilité et documentation.
  *
  * @function mapTypeToCaptainWatch
  * @param {string} type - Le type TMDB à convertir.
@@ -34,8 +54,7 @@ function extractTypeAndIdFromTMDB(url) {
  * mapTypeToCaptainWatch('tv'); // => 'serie'
  */
 function mapTypeToCaptainWatch(type) {
-  const typeMap = { tv: 'serie', movie: 'film', person: 'artiste' };
-  return typeMap[type] || null;
+  return mapType(type, { tv: 'serie', movie: 'film', person: 'artiste' });
 }
 
 /**
@@ -53,7 +72,7 @@ function mapTypeToCaptainWatch(type) {
  * // => 'https://www.captainwatch.com/serie/93405/'
  */
 function generateCaptainWatchUrl(url) {
-  const data = extractTypeAndIdFromTMDB(url);
+  const data = extractTypeAndIdFromUrl(url, 'themoviedb.org', ['tv', 'movie', 'person']);
   if (!data) {
     return null;
   }
@@ -68,32 +87,8 @@ function generateCaptainWatchUrl(url) {
 }
 
 /**
- * Extrait le type de contenu (serie, film, artiste) et l’identifiant numérique d’une URL CaptainWatch.
- *
- * @function extractTypeAndId
- * @param {string} url - L’URL CaptainWatch à analyser.
- * @returns {{type: string, id: string}|null} Un objet contenant le type et l’ID, ou null si l’URL n’est pas valide.
- *
- * @example
- * extractTypeAndId('https://www.captainwatch.com/serie/93405/squid-game');
- * // => { type: 'serie', id: '93405' }
- */
-function extractTypeAndId(url) {
-  if (typeof url !== 'string') {
-    return null;
-  }
-  // Regex : capture le type (serie|film|artiste) et l’ID numérique (un ou plusieurs chiffres) dans une URL CaptainWatch
-  // Exemple : https://www.captainwatch.com/film/12345
-  const regex = /https:\/\/www\.captainwatch\.com\/(serie|film|artiste)\/(\d+)/;
-  const match = url.match(regex);
-  if (!match) {
-    return null;
-  }
-  return { type: match[1], id: match[2] };
-}
-
-/**
  * Mappe le type CaptainWatch ("serie", "film", "artiste") vers le type TMDB ("tv", "movie", "person").
+ * Wrapper pour compatibilité et documentation.
  *
  * @function mapTypeToTMDB
  * @param {string} type - Le type CaptainWatch à convertir.
@@ -103,8 +98,7 @@ function extractTypeAndId(url) {
  * mapTypeToTMDB('serie'); // => 'tv'
  */
 function mapTypeToTMDB(type) {
-  const typeMap = { serie: 'tv', film: 'movie', artiste: 'person' };
-  return typeMap[type] || null;
+  return mapType(type, { serie: 'tv', film: 'movie', artiste: 'person' });
 }
 
 /**
@@ -119,7 +113,7 @@ function mapTypeToTMDB(type) {
  * // => 'https://www.themoviedb.org/tv/93405'
  */
 function generateTMDBUrl(url) {
-  const data = extractTypeAndId(url);
+  const data = extractTypeAndIdFromUrl(url, 'captainwatch.com', ['serie', 'film', 'artiste']);
   if (!data) {
     return null;
   }
@@ -130,30 +124,21 @@ function generateTMDBUrl(url) {
   return `https://www.themoviedb.org/${tmdbType}/${data.id}`;
 }
 
-// Exportation universelle : Node.js (Jest) et navigateur (Chrome Extension)
+// Export universel : Node.js (Jest), window et self (Chrome Extension)
+const exported = {
+  mapTypeToTMDB,
+  generateTMDBUrl,
+  extractTypeAndIdFromUrl,
+  mapTypeToCaptainWatch,
+  generateCaptainWatchUrl,
+  mapType
+};
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    extractTypeAndId,
-    mapTypeToTMDB,
-    generateTMDBUrl,
-    extractTypeAndIdFromTMDB,
-    mapTypeToCaptainWatch,
-    generateCaptainWatchUrl
-  };
+  module.exports = exported;
 }
 if (typeof window !== 'undefined') {
-  window.extractTypeAndId = extractTypeAndId;
-  window.mapTypeToTMDB = mapTypeToTMDB;
-  window.generateTMDBUrl = generateTMDBUrl;
-  window.extractTypeAndIdFromTMDB = extractTypeAndIdFromTMDB;
-  window.mapTypeToCaptainWatch = mapTypeToCaptainWatch;
-  window.generateCaptainWatchUrl = generateCaptainWatchUrl;
+  Object.assign(window, exported);
 }
 if (typeof self !== 'undefined') {
-  self.extractTypeAndId = extractTypeAndId;
-  self.mapTypeToTMDB = mapTypeToTMDB;
-  self.generateTMDBUrl = generateTMDBUrl;
-  self.extractTypeAndIdFromTMDB = extractTypeAndIdFromTMDB;
-  self.mapTypeToCaptainWatch = mapTypeToCaptainWatch;
-  self.generateCaptainWatchUrl = generateCaptainWatchUrl;
+  Object.assign(self, exported);
 }
