@@ -2,8 +2,8 @@ const {
   extractTypeAndIdFromUrl,
   mapType,
   mapTypeToTMDB,
-  generateTMDBUrl,
   mapTypeToCaptainWatch,
+  generateTMDBUrl,
   generateCaptainWatchUrl
 } = require('../utils');
 
@@ -45,6 +45,38 @@ describe('extractTypeAndIdFromUrl (CaptainWatch)', () => {
   });
 });
 
+describe('extractTypeAndIdFromUrl (TMDB vers CaptainWatch)', () => {
+  const domain = 'themoviedb.org';
+  const types = ['tv', 'movie', 'person'];
+  test('movie', () => {
+    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/movie/12345', domain, types)).toEqual({ type: 'movie', id: '12345' });
+  });
+  test('tv', () => {
+    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/tv/67890', domain, types)).toEqual({ type: 'tv', id: '67890' });
+  });
+  test('person', () => {
+    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/person/54321', domain, types)).toEqual({ type: 'person', id: '54321' });
+  });
+  test('invalid', () => {
+    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/other/99999', domain, types)).toBeNull();
+  });
+  test('URL CaptainWatch', () => {
+    expect(extractTypeAndIdFromUrl('https://www.captainwatch.com/film/12345', domain, types)).toBeNull();
+  });
+});
+
+describe('mapType (générique)', () => {
+  it('mappe tv vers serie', () => {
+    expect(mapType('tv', { tv: 'serie', movie: 'film', person: 'artiste' })).toBe('serie');
+  });
+  it('mappe serie vers tv', () => {
+    expect(mapType('serie', { serie: 'tv', film: 'movie', artiste: 'person' })).toBe('tv');
+  });
+  it('retourne null si type inconnu', () => {
+    expect(mapType('autre', { tv: 'serie', movie: 'film', person: 'artiste' })).toBeNull();
+  });
+});
+
 describe('mapTypeToTMDB', () => {
   it('mappe serie vers tv', () => {
     expect(mapTypeToTMDB('serie')).toBe('tv');
@@ -54,6 +86,21 @@ describe('mapTypeToTMDB', () => {
   });
   it('mappe artiste vers person', () => {
     expect(mapTypeToTMDB('artiste')).toBe('person');
+  });
+});
+
+describe('mapTypeToCaptainWatch', () => {
+  it('mappe tv vers serie', () => {
+    expect(mapTypeToCaptainWatch('tv')).toBe('serie');
+  });
+  it('mappe movie vers film', () => {
+    expect(mapTypeToCaptainWatch('movie')).toBe('film');
+  });
+  it('mappe person vers artiste', () => {
+    expect(mapTypeToCaptainWatch('person')).toBe('artiste');
+  });
+  it('retourne null si type inconnu', () => {
+    expect(mapTypeToCaptainWatch('autre')).toBeNull();
   });
 });
 
@@ -72,35 +119,6 @@ describe('generateTMDBUrl', () => {
   });
 });
 
-describe('extractTypeAndIdFromUrl (TMDB vers CaptainWatch)', () => {
-  test('movie', () => {
-    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/movie/12345', 'themoviedb.org', ['tv', 'movie', 'person'])).toEqual({ type: 'movie', id: '12345' });
-  });
-  test('tv', () => {
-    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/tv/67890', 'themoviedb.org', ['tv', 'movie', 'person'])).toEqual({ type: 'tv', id: '67890' });
-  });
-  test('person', () => {
-    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/person/54321', 'themoviedb.org', ['tv', 'movie', 'person'])).toEqual({ type: 'person', id: '54321' });
-  });
-  test('invalid', () => {
-    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/other/99999', 'themoviedb.org', ['tv', 'movie', 'person'])).toBeNull();
-  });
-  test('URL CaptainWatch', () => {
-    expect(extractTypeAndIdFromUrl('https://www.captainwatch.com/film/12345', 'themoviedb.org', ['tv', 'movie', 'person'])).toBeNull();
-  });
-});
-describe('mapType (générique)', () => {
-  it('mappe tv vers serie', () => {
-    expect(mapType('tv', { tv: 'serie', movie: 'film', person: 'artiste' })).toBe('serie');
-  });
-  it('mappe serie vers tv', () => {
-    expect(mapType('serie', { serie: 'tv', film: 'movie', artiste: 'person' })).toBe('tv');
-  });
-  it('retourne null si type inconnu', () => {
-    expect(mapType('autre', { tv: 'serie', movie: 'film', person: 'artiste' })).toBeNull();
-  });
-});
-
 describe('generateCaptainWatchUrl', () => {
   test('film', () => {
     expect(generateCaptainWatchUrl('https://www.themoviedb.org/movie/12345')).toBe('https://www.captainwatch.com/film/12345/');
@@ -113,20 +131,5 @@ describe('generateCaptainWatchUrl', () => {
   });
   test('type inconnu', () => {
     expect(generateCaptainWatchUrl({ type: 'autre', id: '99999' })).toBeNull();
-  });
-});
-
-describe('mapTypeToCaptainWatch', () => {
-  it('mappe tv vers serie', () => {
-    expect(mapTypeToCaptainWatch('tv')).toBe('serie');
-  });
-  it('mappe movie vers film', () => {
-    expect(mapTypeToCaptainWatch('movie')).toBe('film');
-  });
-  it('mappe person vers artiste', () => {
-    expect(mapTypeToCaptainWatch('person')).toBe('artiste');
-  });
-  it('retourne null si type inconnu', () => {
-    expect(mapTypeToCaptainWatch('autre')).toBeNull();
   });
 });
