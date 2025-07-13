@@ -1,6 +1,7 @@
 name: Release Extension ZIP
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
