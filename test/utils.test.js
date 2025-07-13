@@ -1,45 +1,47 @@
 const {
-  extractTypeAndId,
+  extractTypeAndIdFromUrl,
+  mapType,
   mapTypeToTMDB,
   generateTMDBUrl,
-  extractTypeAndIdFromTMDB,
   mapTypeToCaptainWatch,
   generateCaptainWatchUrl
 } = require('../utils');
 
-describe('extractTypeAndId', () => {
+describe('extractTypeAndIdFromUrl (CaptainWatch)', () => {
+  const domain = 'captainwatch.com';
+  const types = ['serie', 'film', 'artiste'];
   it('extrait serie et id', () => {
-    expect(extractTypeAndId('https://www.captainwatch.com/serie/93405/squid-game')).toEqual({ type: 'serie', id: '93405' });
+    expect(extractTypeAndIdFromUrl('https://www.captainwatch.com/serie/93405/squid-game', domain, types)).toEqual({ type: 'serie', id: '93405' });
   });
   it('extrait film et id', () => {
-    expect(extractTypeAndId('https://www.captainwatch.com/film/27205/inception')).toEqual({ type: 'film', id: '27205' });
+    expect(extractTypeAndIdFromUrl('https://www.captainwatch.com/film/27205/inception', domain, types)).toEqual({ type: 'film', id: '27205' });
   });
   it('extrait artiste et id', () => {
-    expect(extractTypeAndId('https://www.captainwatch.com/artiste/138/quentin-tarantino')).toEqual({ type: 'artiste', id: '138' });
+    expect(extractTypeAndIdFromUrl('https://www.captainwatch.com/artiste/138/quentin-tarantino', domain, types)).toEqual({ type: 'artiste', id: '138' });
   });
   it('retourne null si url non valide', () => {
-    expect(extractTypeAndId('https://www.google.com')).toBeNull();
+    expect(extractTypeAndIdFromUrl('https://www.google.com', domain, types)).toBeNull();
   });
   it('extrait type et id même si l’URL n’a pas de segment nom', () => {
-    expect(extractTypeAndId('https://www.captainwatch.com/serie/93405/')).toEqual({ type: 'serie', id: '93405' });
+    expect(extractTypeAndIdFromUrl('https://www.captainwatch.com/serie/93405/', domain, types)).toEqual({ type: 'serie', id: '93405' });
   });
   it('retourne null si id non numérique', () => {
-    expect(extractTypeAndId('https://www.captainwatch.com/film/abc/inception')).toBeNull();
+    expect(extractTypeAndIdFromUrl('https://www.captainwatch.com/film/abc/inception', domain, types)).toBeNull();
   });
   it('extrait avec paramètres dans l’URL', () => {
-    expect(extractTypeAndId('https://www.captainwatch.com/serie/93405/squid-game?param=test')).toEqual({ type: 'serie', id: '93405' });
+    expect(extractTypeAndIdFromUrl('https://www.captainwatch.com/serie/93405/squid-game?param=test', domain, types)).toEqual({ type: 'serie', id: '93405' });
   });
   it('extrait avec fragment dans l’URL', () => {
-    expect(extractTypeAndId('https://www.captainwatch.com/serie/93405/squid-game#fragment')).toEqual({ type: 'serie', id: '93405' });
+    expect(extractTypeAndIdFromUrl('https://www.captainwatch.com/serie/93405/squid-game#fragment', domain, types)).toEqual({ type: 'serie', id: '93405' });
   });
   it('retourne null pour chaîne vide', () => {
-    expect(extractTypeAndId('')).toBeNull();
+    expect(extractTypeAndIdFromUrl('', domain, types)).toBeNull();
   });
   it('retourne null pour null', () => {
-    expect(extractTypeAndId(null)).toBeNull();
+    expect(extractTypeAndIdFromUrl(null, domain, types)).toBeNull();
   });
   it('retourne null pour undefined', () => {
-    expect(extractTypeAndId(undefined)).toBeNull();
+    expect(extractTypeAndIdFromUrl(undefined, domain, types)).toBeNull();
   });
 });
 
@@ -52,24 +54,6 @@ describe('mapTypeToTMDB', () => {
   });
   it('mappe artiste vers person', () => {
     expect(mapTypeToTMDB('artiste')).toBe('person');
-  });
-});
-
-describe('extractTypeAndId (CaptainWatch vers TMDB)', () => {
-  test('film', () => {
-    expect(extractTypeAndId('https://www.captainwatch.com/film/12345')).toEqual({ type: 'film', id: '12345' });
-  });
-  test('serie', () => {
-    expect(extractTypeAndId('https://www.captainwatch.com/serie/67890')).toEqual({ type: 'serie', id: '67890' });
-  });
-  test('artiste', () => {
-    expect(extractTypeAndId('https://www.captainwatch.com/artiste/54321')).toEqual({ type: 'artiste', id: '54321' });
-  });
-  test('invalid', () => {
-    expect(extractTypeAndId('https://www.captainwatch.com/unknown/99999')).toBeNull();
-  });
-  test('URL TMDB', () => {
-    expect(extractTypeAndId('https://www.themoviedb.org/movie/12345')).toBeNull();
   });
 });
 
@@ -88,20 +72,21 @@ describe('generateTMDBUrl', () => {
   });
 });
 
-describe('extractTypeAndIdFromTMDB (TMDB vers CaptainWatch)', () => {
+describe('extractTypeAndIdFromUrl (TMDB vers CaptainWatch)', () => {
   test('movie', () => {
-    expect(extractTypeAndIdFromTMDB('https://www.themoviedb.org/movie/12345')).toEqual({ type: 'movie', id: '12345' });
+    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/movie/12345', 'themoviedb.org', ['tv', 'movie', 'person'])).toEqual({ type: 'movie', id: '12345' });
   });
   test('tv', () => {
-    expect(extractTypeAndIdFromTMDB('https://www.themoviedb.org/tv/67890')).toEqual({ type: 'tv', id: '67890' });
+    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/tv/67890', 'themoviedb.org', ['tv', 'movie', 'person'])).toEqual({ type: 'tv', id: '67890' });
   });
   test('person', () => {
-    expect(extractTypeAndIdFromTMDB('https://www.themoviedb.org/person/54321')).toEqual({ type: 'person', id: '54321' });
+    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/person/54321', 'themoviedb.org', ['tv', 'movie', 'person'])).toEqual({ type: 'person', id: '54321' });
   });
   test('invalid', () => {
-    expect(extractTypeAndIdFromTMDB('https://www.themoviedb.org/other/99999')).toBeNull();
+    expect(extractTypeAndIdFromUrl('https://www.themoviedb.org/other/99999', 'themoviedb.org', ['tv', 'movie', 'person'])).toBeNull();
   });
   test('URL CaptainWatch', () => {
+    expect(extractTypeAndIdFromUrl('https://www.captainwatch.com/film/12345', 'themoviedb.org', ['tv', 'movie', 'person'])).toBeNull();
   });
 });
 describe('mapType (générique)', () => {
