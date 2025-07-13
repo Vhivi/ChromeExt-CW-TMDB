@@ -34,7 +34,9 @@ const iconsTMDBInactive = {
 };
 
 chrome.action.onClicked.addListener(async (tab) => {
-  if (!tab.url) return;
+  if (!tab.url) {
+    return;
+  }
   /**
    * L’URL TMDB (The Movie Database) générée pour l’onglet courant.
    * @type {string}
@@ -54,7 +56,9 @@ chrome.action.onClicked.addListener(async (tab) => {
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (!tab.url) return;
+  if (!tab.url) {
+    return;
+  }
   const isCaptainWatch = extractTypeAndId(tab.url) !== null;
   const isTMDB = extractTypeAndIdFromTMDB(tab.url) !== null;
   if (isCaptainWatch || isTMDB) {
