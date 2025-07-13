@@ -14,7 +14,7 @@ jobs:
 
       - name: Get release tag
         id: get_tag
-        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" | sed 's/^v//' >> $GITHUB_ENV
 
       - name: Read manifest version
         id: manifest_version
@@ -43,11 +43,8 @@ jobs:
           zip -r ../ChromeExt-CW-TMDB-v$RELEASE_TAG.zip .
 
       - name: Upload ZIP to release
-        uses: actions/upload-release-asset@v1
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ChromeExt-CW-TMDB-v$RELEASE_TAG.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./ChromeExt-CW-TMDB-v$RELEASE_TAG.zip
-          asset_name: ChromeExt-CW-TMDB-v$RELEASE_TAG.zip
-          asset_content_type: application/zip
