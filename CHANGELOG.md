@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/Vhivi/ChromeExt-CW-TMDB/compare/v2.0.1...v2.1.0) (2025-07-13)
+
+### Features
+
+* Activer le déclenchement manuel du workflow de création de ZIP pour l'extension ([7d1029f](https://github.com/Vhivi/ChromeExt-CW-TMDB/commit/7d1029fa28007cf114c5380837697c0b99f9490d))
+* Ajouter un workflow GitHub Actions pour créer et télécharger un ZIP de l'extension lors des publications ([b782a95](https://github.com/Vhivi/ChromeExt-CW-TMDB/commit/b782a95f544895cc2507f23b6fe2ada635394a0c))
+* Ajouter une fonction de mappage générique pour la conversion des types ([05fc1b2](https://github.com/Vhivi/ChromeExt-CW-TMDB/commit/05fc1b2025611655877016e6473903a5916f7008))
+
+### Bug Fixes
+
+* Améliorer la lisibilité en ajoutant des accolades pour les vérifications d'URL ([7f9ad81](https://github.com/Vhivi/ChromeExt-CW-TMDB/commit/7f9ad8193e52ea74a3e6e609f41456e010627b00))
+* Améliorer la lisibilité en ajoutant des accolades pour les vérifications de type et de correspondance ([f839307](https://github.com/Vhivi/ChromeExt-CW-TMDB/commit/f83930703a00658099763f83fe5281251ccb9664))
+* Corriger l'extraction du tag de release en supprimant le préfixe 'v' correctement ([1b671c2](https://github.com/Vhivi/ChromeExt-CW-TMDB/commit/1b671c2616da7d685d9226d96d338c7bfacf477e))
+* Corriger le téléchargement du ZIP en utilisant l'action appropriée pour les releases ([bc54b5c](https://github.com/Vhivi/ChromeExt-CW-TMDB/commit/bc54b5c78ee7562cc14f65957c4b796ecdd293ce))
+
 ## [2.0.1](https://github.com/Vhivi/ChromeExt-CW-TMDB/compare/v2.0.0...v2.0.1) (2025-07-12)
 
 ### Features
