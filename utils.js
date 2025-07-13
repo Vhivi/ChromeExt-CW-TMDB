@@ -13,6 +13,8 @@ function extractTypeAndIdFromTMDB(url) {
   if (typeof url !== 'string') {
     return null;
   }
+  // Regex : capture le type (tv|movie|person) et l’ID numérique (un ou plusieurs chiffres) dans une URL TMDB
+  // Exemple : https://www.themoviedb.org/movie/12345
   const regex = /https:\/\/www\.themoviedb\.org\/(tv|movie|person)\/(\d+)/;
   const match = url.match(regex);
   if (!match) {
@@ -80,6 +82,8 @@ function extractTypeAndId(url) {
   if (typeof url !== 'string') {
     return null;
   }
+  // Regex : capture le type (serie|film|artiste) et l’ID numérique (un ou plusieurs chiffres) dans une URL CaptainWatch
+  // Exemple : https://www.captainwatch.com/film/12345
   const regex = /https:\/\/www\.captainwatch\.com\/(serie|film|artiste)\/(\d+)/;
   const match = url.match(regex);
   if (!match) {
