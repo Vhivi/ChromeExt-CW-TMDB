@@ -112,7 +112,7 @@ Cela garantit que l’extension ne fonctionne que sur ces URLs et ne collecte ni
 
 ### Installation au format `.zip` (mode développeur)
 
-1. Récupérez le fichier `.zip` fourni par le développeur.
+1. Téléchargez la dernière release `.zip` depuis la page [Releases du dépôt GitHub](https://github.com/Vhivi/ChromeExt-CW-TMDB/releases/latest).
 2. Décompressez-le dans un dossier.
 3. Ouvrez la page des extensions de votre navigateur :
    - **Chrome** : `chrome://extensions/`
@@ -132,7 +132,7 @@ Cela garantit que l’extension ne fonctionne que sur ces URLs et ne collecte ni
 7. Épinglez l’icône de l’extension dans la barre d’outils pour un accès rapide.
 
    ![Barre d’outils](screenshots/chrome-pin.jpg)
-8. Profitez de l’extension ! En dehors des pages CaptainWatch, l’icône sera rouge et inactive.
+8. Profitez de l’extension ! En dehors des pages CaptainWatch et TMDB, l’icône sera rouge et l'extension inactive.
 
    ![Extension inactive](screenshots/chrome-enjoy.jpg)
 9. Sur une page valide, elle deviendra verte et cliquable.
