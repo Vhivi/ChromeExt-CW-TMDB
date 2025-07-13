@@ -40,11 +40,11 @@ jobs:
       - name: Create ZIP archive
         run: |
           cd ext-dist
-          zip -r ../ChromeExt-CW-TMDB-v$RELEASE_TAG.zip .
+          zip -r ../ChromeExt-CW-TMDB-v${{ env.RELEASE_TAG }}.zip .
 
       - name: Upload ZIP to release
         uses: softprops/action-gh-release@v1
         with:
-          files: ChromeExt-CW-TMDB-v$RELEASE_TAG.zip
+          files: ChromeExt-CW-TMDB-v${{ env.RELEASE_TAG }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
