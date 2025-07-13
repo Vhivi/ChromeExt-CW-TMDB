@@ -11,5 +11,6 @@ JEST.md
 ext/
 # Fichiers système
 Thumbs.db
-# Fichiers de configuration IDE
-.github/
+# Ignorer la documentation et les fichiers d'orientation afin d'éviter les transferts accidentels d'instructions internes.
+*-instructions.md
+guidance/

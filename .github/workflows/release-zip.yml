@@ -1,0 +1,50 @@
+name: Release Extension ZIP
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  build-zip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get release tag
+        id: get_tag
+        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Read manifest version
+        id: manifest_version
+        run: |
+          MANIFEST_VERSION=$(jq -r .version manifest.json)
+          echo "MANIFEST_VERSION=$MANIFEST_VERSION" >> $GITHUB_ENV
+
+      - name: Check version match
+        run: |
+          if [ "$RELEASE_TAG" != "$MANIFEST_VERSION" ]; then
+            echo "Erreur : le tag de release ($RELEASE_TAG) ne correspond pas à la version du manifest.json ($MANIFEST_VERSION)."
+            exit 1
+          fi
+
+      - name: Create extension package folder
+        run: |
+          mkdir ext-dist
+          cp manifest.json ext-dist/
+          cp background.js ext-dist/
+          cp utils.js ext-dist/
+          cp -r icons ext-dist/
+
+      - name: Create ZIP archive
+        run: |
+          cd ext-dist
+          zip -r ../ChromeExt-CW-TMDB-v$RELEASE_TAG.zip .
+
+      - name: Upload ZIP to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ChromeExt-CW-TMDB-v$RELEASE_TAG.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
