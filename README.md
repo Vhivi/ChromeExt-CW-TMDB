@@ -6,6 +6,7 @@
   - [Table des matières](#table-des-matières)
   - [Objectif](#objectif)
   - [Fonctionnalités principales](#fonctionnalités-principales)
+  - [Portée et sécurité](#portée-et-sécurité)
   - [Exemples](#exemples)
   - [Technologies utilisées](#technologies-utilisées)
   - [Structure du projet](#structure-du-projet)
@@ -41,6 +42,20 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 - Structure modulaire : la logique métier est centralisée dans `utils.js` et utilisée dans `background.js`.
 - Tests unitaires avec Jest sur la logique métier (`utils.test.js`).
 - Fichier `.gitignore` pour la publication propre du projet.
+
+## Portée et sécurité
+
+L’extension n’est active et n’a accès qu’aux pages des domaines suivants :
+
+- CaptainWatch :
+  - `https://www.captainwatch.com/serie/*`
+  - `https://www.captainwatch.com/film/*`
+  - `https://www.captainwatch.com/artiste/*`
+- TMDB :
+  - `https://www.themoviedb.org/tv/*`
+  - `https://www.themoviedb.org/movie/*`
+  - `https://www.themoviedb.org/person/*`
+Cela garantit que l’extension ne fonctionne que sur ces URLs et ne collecte ni n’interagit avec d’autres sites ou données.
 
 ## Exemples
 
@@ -97,7 +112,7 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 
 ### Installation au format `.zip` (mode développeur)
 
-1. Récupérez le fichier `.zip` fourni par le développeur.
+1. Téléchargez la dernière release `.zip` depuis la page [Releases du dépôt GitHub](https://github.com/Vhivi/ChromeExt-CW-TMDB/releases/latest).
 2. Décompressez-le dans un dossier.
 3. Ouvrez la page des extensions de votre navigateur :
    - **Chrome** : `chrome://extensions/`
@@ -117,7 +132,7 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 7. Épinglez l’icône de l’extension dans la barre d’outils pour un accès rapide.
 
    ![Barre d’outils](screenshots/chrome-pin.jpg)
-8. Profitez de l’extension ! En dehors des pages CaptainWatch, l’icône sera rouge et inactive.
+8. Profitez de l’extension ! En dehors des pages CaptainWatch et TMDB, l’icône sera rouge et l'extension inactive.
 
    ![Extension inactive](screenshots/chrome-enjoy.jpg)
 9. Sur une page valide, elle deviendra verte et cliquable.
