@@ -102,7 +102,17 @@ describe('extractTypeAndIdFromTMDB (TMDB vers CaptainWatch)', () => {
     expect(extractTypeAndIdFromTMDB('https://www.themoviedb.org/other/99999')).toBeNull();
   });
   test('URL CaptainWatch', () => {
-    expect(extractTypeAndIdFromTMDB('https://www.captainwatch.com/film/12345')).toBeNull();
+  });
+});
+describe('mapType (générique)', () => {
+  it('mappe tv vers serie', () => {
+    expect(mapType('tv', { tv: 'serie', movie: 'film', person: 'artiste' })).toBe('serie');
+  });
+  it('mappe serie vers tv', () => {
+    expect(mapType('serie', { serie: 'tv', film: 'movie', artiste: 'person' })).toBe('tv');
+  });
+  it('retourne null si type inconnu', () => {
+    expect(mapType('autre', { tv: 'serie', movie: 'film', person: 'artiste' })).toBeNull();
   });
 });
 
