@@ -124,27 +124,21 @@ function generateTMDBUrl(url) {
   return `https://www.themoviedb.org/${tmdbType}/${data.id}`;
 }
 
-// Exportation universelle : Node.js (Jest) et navigateur (Chrome Extension)
+// Export universel : Node.js (Jest), window et self (Chrome Extension)
+const exported = {
+  mapTypeToTMDB,
+  generateTMDBUrl,
+  extractTypeAndIdFromUrl,
+  mapTypeToCaptainWatch,
+  generateCaptainWatchUrl,
+  mapType
+};
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    mapTypeToTMDB,
-    generateTMDBUrl,
-    extractTypeAndIdFromUrl,
-    mapTypeToCaptainWatch,
-    generateCaptainWatchUrl
-  };
+  module.exports = exported;
 }
 if (typeof window !== 'undefined') {
-  window.mapTypeToTMDB = mapTypeToTMDB;
-  window.generateTMDBUrl = generateTMDBUrl;
-  window.extractTypeAndIdFromUrl = extractTypeAndIdFromUrl;
-  window.mapTypeToCaptainWatch = mapTypeToCaptainWatch;
-  window.generateCaptainWatchUrl = generateCaptainWatchUrl;
+  Object.assign(window, exported);
 }
 if (typeof self !== 'undefined') {
-  self.mapTypeToTMDB = mapTypeToTMDB;
-  self.generateTMDBUrl = generateTMDBUrl;
-  self.extractTypeAndIdFromUrl = extractTypeAndIdFromUrl;
-  self.mapTypeToCaptainWatch = mapTypeToCaptainWatch;
-  self.generateCaptainWatchUrl = generateCaptainWatchUrl;
+  Object.assign(self, exported);
 }
