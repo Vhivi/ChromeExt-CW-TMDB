@@ -12,4 +12,5 @@ ext/
 # Fichiers système
 Thumbs.db
 # Fichiers de configuration IDE
-.github/
+*-instructions.md
+guidance/
