@@ -10,10 +10,14 @@
  * // => { type: 'tv', id: '93405' }
  */
 function extractTypeAndIdFromTMDB(url) {
-  if (typeof url !== 'string') return null;
+  if (typeof url !== 'string') {
+    return null;
+  }
   const regex = /https:\/\/www\.themoviedb\.org\/(tv|movie|person)\/(\d+)/;
   const match = url.match(regex);
-  if (!match) return null;
+  if (!match) {
+    return null;
+  }
   return { type: match[1], id: match[2] };
 }
 
@@ -48,9 +52,13 @@ function mapTypeToCaptainWatch(type) {
  */
 function generateCaptainWatchUrl(url) {
   const data = extractTypeAndIdFromTMDB(url);
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
   const cwType = mapTypeToCaptainWatch(data.type);
-  if (!cwType) return null;
+  if (!cwType) {
+    return null;
+  }
   if (cwType === 'artiste') {
     return `https://www.captainwatch.com/artiste/${data.id}/-`;
   }
@@ -69,10 +77,14 @@ function generateCaptainWatchUrl(url) {
  * // => { type: 'serie', id: '93405' }
  */
 function extractTypeAndId(url) {
-  if (typeof url !== 'string') return null;
+  if (typeof url !== 'string') {
+    return null;
+  }
   const regex = /https:\/\/www\.captainwatch\.com\/(serie|film|artiste)\/(\d+)/;
   const match = url.match(regex);
-  if (!match) return null;
+  if (!match) {
+    return null;
+  }
   return { type: match[1], id: match[2] };
 }
 
@@ -104,9 +116,13 @@ function mapTypeToTMDB(type) {
  */
 function generateTMDBUrl(url) {
   const data = extractTypeAndId(url);
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
   const tmdbType = mapTypeToTMDB(data.type);
-  if (!tmdbType) return null;
+  if (!tmdbType) {
+    return null;
+  }
   return `https://www.themoviedb.org/${tmdbType}/${data.id}`;
 }
 
