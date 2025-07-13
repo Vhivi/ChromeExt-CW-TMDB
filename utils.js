@@ -28,7 +28,23 @@ function extractTypeAndIdFromUrl(url, domain, types) {
 }
 
 /**
+ * Fonction générique pour mapper un type selon un objet de correspondance.
+ *
+ * @function mapType
+ * @param {string} type - Le type à convertir.
+ * @param {Object} mapping - Objet de correspondance (clé: source, valeur: cible).
+ * @returns {string|null} Le type mappé ou null si non reconnu.
+ *
+ * @example
+ * mapType('tv', { tv: 'serie', movie: 'film', person: 'artiste' }); // => 'serie'
+ */
+function mapType(type, mapping) {
+  return mapping[type] || null;
+}
+
+/**
  * Mappe le type TMDB (tv, movie, person) vers le type CaptainWatch (serie, film, artiste).
+ * Wrapper pour compatibilité et documentation.
  *
  * @function mapTypeToCaptainWatch
  * @param {string} type - Le type TMDB à convertir.
@@ -38,8 +54,7 @@ function extractTypeAndIdFromUrl(url, domain, types) {
  * mapTypeToCaptainWatch('tv'); // => 'serie'
  */
 function mapTypeToCaptainWatch(type) {
-  const typeMap = { tv: 'serie', movie: 'film', person: 'artiste' };
-  return typeMap[type] || null;
+  return mapType(type, { tv: 'serie', movie: 'film', person: 'artiste' });
 }
 
 /**
@@ -73,6 +88,7 @@ function generateCaptainWatchUrl(url) {
 
 /**
  * Mappe le type CaptainWatch ("serie", "film", "artiste") vers le type TMDB ("tv", "movie", "person").
+ * Wrapper pour compatibilité et documentation.
  *
  * @function mapTypeToTMDB
  * @param {string} type - Le type CaptainWatch à convertir.
@@ -82,8 +98,7 @@ function generateCaptainWatchUrl(url) {
  * mapTypeToTMDB('serie'); // => 'tv'
  */
 function mapTypeToTMDB(type) {
-  const typeMap = { serie: 'tv', film: 'movie', artiste: 'person' };
-  return typeMap[type] || null;
+  return mapType(type, { serie: 'tv', film: 'movie', artiste: 'person' });
 }
 
 /**
