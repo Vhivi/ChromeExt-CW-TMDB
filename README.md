@@ -6,6 +6,7 @@
   - [Table des matières](#table-des-matières)
   - [Objectif](#objectif)
   - [Fonctionnalités principales](#fonctionnalités-principales)
+  - [Portée et sécurité](#portée-et-sécurité)
   - [Exemples](#exemples)
   - [Technologies utilisées](#technologies-utilisées)
   - [Structure du projet](#structure-du-projet)
@@ -41,6 +42,20 @@ Créer une extension pour navigateurs basés sur Chromium (Chrome, Edge, Brave, 
 - Structure modulaire : la logique métier est centralisée dans `utils.js` et utilisée dans `background.js`.
 - Tests unitaires avec Jest sur la logique métier (`utils.test.js`).
 - Fichier `.gitignore` pour la publication propre du projet.
+
+## Portée et sécurité
+
+L’extension n’est active et n’a accès qu’aux pages des domaines suivants :
+
+- CaptainWatch :
+  - `https://www.captainwatch.com/serie/*`
+  - `https://www.captainwatch.com/film/*`
+  - `https://www.captainwatch.com/artiste/*`
+- TMDB :
+  - `https://www.themoviedb.org/tv/*`
+  - `https://www.themoviedb.org/movie/*`
+  - `https://www.themoviedb.org/person/*`
+Cela garantit que l’extension ne fonctionne que sur ces URLs et ne collecte ni n’interagit avec d’autres sites ou données.
 
 ## Exemples
 
