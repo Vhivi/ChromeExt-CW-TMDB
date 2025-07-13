@@ -115,3 +115,18 @@ describe('generateCaptainWatchUrl', () => {
     expect(generateCaptainWatchUrl({ type: 'autre', id: '99999' })).toBeNull();
   });
 });
+
+describe('mapTypeToCaptainWatch', () => {
+  it('mappe tv vers serie', () => {
+    expect(mapTypeToCaptainWatch('tv')).toBe('serie');
+  });
+  it('mappe movie vers film', () => {
+    expect(mapTypeToCaptainWatch('movie')).toBe('film');
+  });
+  it('mappe person vers artiste', () => {
+    expect(mapTypeToCaptainWatch('person')).toBe('artiste');
+  });
+  it('retourne null si type inconnu', () => {
+    expect(mapTypeToCaptainWatch('autre')).toBeNull();
+  });
+});
