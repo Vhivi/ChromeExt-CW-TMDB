@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.2](https://github.com/Vhivi/ChromeExt-CW-TMDB/compare/v2.1.1...v2.1.2) (2025-07-14)
+
+* chore: Ajouter les permissions pour l'écriture du contenu dans le workflow de création de ZIP ([ce0feac](https://github.com/Vhivi/ChromeExt-CW-TMDB/commit/ce0feac220b913485c1ade3a3905400c703a08cb))
+
 ## [2.1.1](https://github.com/Vhivi/ChromeExt-CW-TMDB/compare/v2.1.0...v2.1.1) (2025-07-14)
 
 ### Bug Fixes
