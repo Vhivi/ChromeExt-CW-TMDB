@@ -13,6 +13,7 @@
   - [TODO – Étapes de développement](#todo--étapes-de-développement)
   - [Instructions d’installation](#instructions-dinstallation)
     - [Installation au format `.zip` (mode développeur)](#installation-au-format-zip-mode-développeur)
+  - [Licence](#licence)
 
 ## Objectif
 
@@ -138,3 +139,7 @@ Cela garantit que l’extension ne fonctionne que sur ces URLs et ne collecte ni
 9. Sur une page valide, elle deviendra verte et cliquable.
 
    ![Extension active](screenshots/chrome-click.jpg)
+
+## Licence
+
+Ce projet est distribué sous licence MIT. Voir le fichier LICENSE pour les détails.
