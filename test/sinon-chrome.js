@@ -42,12 +42,9 @@ const chrome = {
   },
   flush: function() {
     chrome.tabs.create.reset();
-    chrome.tabs.onUpdated.clearListeners();
     chrome.action.setIcon.reset();
     chrome.action.enable.reset();
     chrome.action.disable.reset();
-    chrome.action.onClicked.clearListeners();
-    chrome.runtime.onInstalled.clearListeners();
   }
 };
 
