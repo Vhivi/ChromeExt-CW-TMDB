@@ -20,6 +20,9 @@
  */
 importScripts('utils.js');
 
+// Pour forcer  l'utilisation du mock global
+const chrome = global.chrome || chrome;
+
 // Centralisation des chemins d’icônes
 const ICONS = {
   captainwatch: {
@@ -32,6 +35,7 @@ const ICONS = {
   }
 };
 
+console.log('[DEBUG] Enregistrement listener action.onClicked');
 chrome.action.onClicked.addListener(async (tab) => {
   if (!tab.url) {
     return;
@@ -43,17 +47,20 @@ chrome.action.onClicked.addListener(async (tab) => {
     // Si CaptainWatch → TMDB
     const tmdbUrl = generateTMDBUrl(tab.url);
     if (tmdbUrl) {
+      console.log('Opening TMDB URL:', tmdbUrl); // Log pour débogage
       chrome.tabs.create({ url: tmdbUrl });
       return;
     }
     // Si TMDB → CaptainWatch
     const cwUrl = generateCaptainWatchUrl(tab.url);
     if (cwUrl) {
+      console.log('Opening CaptainWatch URL:', cwUrl); // Log pour débogage
       chrome.tabs.create({ url: cwUrl });
       return;
     }
 });
 
+console.log('[DEBUG] Enregistrement listener tabs.onUpdated');
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (!tab.url) {
     return;
@@ -71,6 +78,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 });
 
+console.log('[DEBUG] Enregistrement listener runtime.onInstalled');
 chrome.runtime.onInstalled.addListener(() => {
   chrome.action.disable();
   chrome.tabs.query({}, (tabs) => {
