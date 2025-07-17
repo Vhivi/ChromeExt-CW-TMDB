@@ -26,8 +26,6 @@ describe('background.js', () => {
       // Vérifie la présence du listener
       expect(chrome.action.onClicked.getListeners().length).toBeGreaterThan(0);
       chrome.action.onClicked.dispatch(tab);
-      // Log pour debug
-      console.log('tabs.create.calls:', chrome.tabs.create.calls);
       expect(chrome.tabs.create.calls.length).toBeGreaterThan(0);
       expect(chrome.tabs.create.calls[0][0]).toEqual({ url: 'https://www.themoviedb.org/movie/27205' });
     });
@@ -35,7 +33,6 @@ describe('background.js', () => {
       const tab = { url: 'https://www.themoviedb.org/tv/93405' };
       expect(chrome.action.onClicked.getListeners().length).toBeGreaterThan(0);
       chrome.action.onClicked.dispatch(tab);
-      console.log('tabs.create.calls:', chrome.tabs.create.calls);
       expect(chrome.tabs.create.calls.length).toBeGreaterThan(0);
       expect(chrome.tabs.create.calls[0][0]).toEqual({ url: 'https://www.captainwatch.com/serie/93405/' });
     });
@@ -43,7 +40,6 @@ describe('background.js', () => {
       const tab = { url: 'https://example.com' };
       expect(chrome.action.onClicked.getListeners().length).toBeGreaterThan(0);
       chrome.action.onClicked.dispatch(tab);
-      console.log('tabs.create.calls:', chrome.tabs.create.calls);
       expect(chrome.tabs.create.calls.length).toBe(0);
     });
   });
@@ -54,8 +50,6 @@ describe('background.js', () => {
       const tab = { url: 'https://www.captainwatch.com/film/27205' };
       expect(chrome.tabs.onUpdated.getListeners().length).toBeGreaterThan(0);
       chrome.tabs.onUpdated.dispatch(tabId, {}, tab);
-      console.log('action.enable.calls:', chrome.action.enable.calls);
-      console.log('action.setIcon.calls:', chrome.action.setIcon.calls);
       expect(chrome.action.enable.calls.length).toBeGreaterThan(0);
       expect(chrome.action.enable.calls[0][0]).toBe(tabId);
       expect(chrome.action.setIcon.calls.length).toBeGreaterThan(0);
@@ -66,8 +60,6 @@ describe('background.js', () => {
       const tab = { url: 'https://www.themoviedb.org/movie/27205' };
       expect(chrome.tabs.onUpdated.getListeners().length).toBeGreaterThan(0);
       chrome.tabs.onUpdated.dispatch(tabId, {}, tab);
-      console.log('action.enable.calls:', chrome.action.enable.calls);
-      console.log('action.setIcon.calls:', chrome.action.setIcon.calls);
       expect(chrome.action.enable.calls.length).toBeGreaterThan(0);
       expect(chrome.action.enable.calls[0][0]).toBe(tabId);
       expect(chrome.action.setIcon.calls.length).toBeGreaterThan(0);
@@ -78,8 +70,6 @@ describe('background.js', () => {
       const tab = { url: 'https://example.com' };
       expect(chrome.tabs.onUpdated.getListeners().length).toBeGreaterThan(0);
       chrome.tabs.onUpdated.dispatch(tabId, {}, tab);
-      console.log('action.disable.calls:', chrome.action.disable.calls);
-      console.log('action.setIcon.calls:', chrome.action.setIcon.calls);
       expect(chrome.action.disable.calls.length).toBeGreaterThan(0);
       expect(chrome.action.disable.calls[0][0]).toBe(tabId);
       expect(chrome.action.setIcon.calls.length).toBeGreaterThan(0);
@@ -98,13 +88,29 @@ describe('background.js', () => {
       chrome.tabs.query.mockImplementation = (query, cb) => cb(tabs);
       expect(chrome.runtime.onInstalled.getListeners().length).toBeGreaterThan(0);
       chrome.runtime.onInstalled.dispatch();
-      console.log('action.disable.calls:', chrome.action.disable.calls);
-      console.log('action.setIcon.calls:', chrome.action.setIcon.calls);
       expect(chrome.action.disable.calls.length).toBeGreaterThan(0);
       expect(chrome.action.setIcon.calls.length).toBeGreaterThan(2);
       expect(chrome.action.setIcon.calls[0][0]).toEqual({ tabId: 1, path: { 48: 'icons/icon48-green.png' } });
       expect(chrome.action.setIcon.calls[1][0]).toEqual({ tabId: 2, path: { 48: 'icons/icon48-tmdb-green.png' } });
       expect(chrome.action.setIcon.calls[2][0]).toEqual({ tabId: 3, path: { 48: 'icons/icon48-red.png' } });
+    });
+
+    it('ignore les onglets sans id', () => {
+      const tabs = [
+        { url: 'https://www.captainwatch.com/film/27205' }, // no id
+        { id: 2, url: 'https://www.themoviedb.org/movie/27205' }
+      ];
+      chrome.tabs.query.mockImplementation = (query, cb) => cb(tabs);
+      chrome.runtime.onInstalled.dispatch();
+      // Seul le tab avec id doit être traité
+      expect(chrome.action.setIcon.calls.length).toBe(1);
+      expect(chrome.action.setIcon.calls[0][0]).toEqual({ tabId: 2, path: { 48: 'icons/icon48-tmdb-green.png' } });
+    });
+
+    it('ne plante pas si tabs est vide', () => {
+      chrome.tabs.query.mockImplementation = (query, cb) => cb([]);
+      expect(() => chrome.runtime.onInstalled.dispatch()).not.toThrow();
+      expect(chrome.action.setIcon.calls.length).toBe(0);
     });
   });
 });
