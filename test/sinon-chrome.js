@@ -1,9 +1,15 @@
 function makeSpy() {
   function spy(...args) {
     spy.calls.push(args);
+    if (typeof spy.mockImplementation === 'function') {
+      return spy.mockImplementation(...args);
+    }
   }
   spy.calls = [];
-  spy.reset = function() { spy.calls = []; };
+  spy.reset = function() {
+    spy.calls = [];
+    delete spy.mockImplementation;
+  };
   return spy;
 }
 
