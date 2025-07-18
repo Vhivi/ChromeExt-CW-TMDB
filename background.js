@@ -101,4 +101,3 @@ function updateIcon(tabId, isActive, isTMDB) {
     path: ICONS[source][state]
   });
 }
-
