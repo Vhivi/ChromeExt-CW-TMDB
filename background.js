@@ -20,6 +20,9 @@
  */
 importScripts('utils.js');
 
+// Pour forcer  l'utilisation du mock global
+const chrome = global.chrome || chrome;
+
 // Centralisation des chemins d’icônes
 const ICONS = {
   captainwatch: {
@@ -98,4 +101,3 @@ function updateIcon(tabId, isActive, isTMDB) {
     path: ICONS[source][state]
   });
 }
-
