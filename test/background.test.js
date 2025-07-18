@@ -97,14 +97,17 @@ describe('background.js', () => {
 
     it('ignore les onglets sans id', () => {
       const tabs = [
-        { url: 'https://www.captainwatch.com/film/27205' }, // no id
-        { id: 2, url: 'https://www.themoviedb.org/movie/27205' }
+        { id: 1, url: 'https://www.captainwatch.com/film/27205' },
+        { url: 'https://www.themoviedb.org/movie/27205' },
+        { id: 3, url: 'https://example.com' }
       ];
       chrome.tabs.query.mockImplementation = (query, cb) => cb(tabs);
+      expect(chrome.runtime.onInstalled.getListeners().length).toBeGreaterThan(0);
       chrome.runtime.onInstalled.dispatch();
-      // Seul le tab avec id doit être traité
-      expect(chrome.action.setIcon.calls.length).toBe(1);
-      expect(chrome.action.setIcon.calls[0][0]).toEqual({ tabId: 2, path: { 48: 'icons/icon48-tmdb-green.png' } });
+      expect(chrome.action.disable.calls.length).toBeGreaterThan(0);
+      expect(chrome.action.setIcon.calls.length).toBe(2);
+      expect(chrome.action.setIcon.calls[0][0]).toEqual({ tabId: 1, path: { 48: 'icons/icon48-red.png' } });
+      expect(chrome.action.setIcon.calls[1][0]).toEqual({ tabId: 3, path: { 48: 'icons/icon48-red.png' } });
     });
 
     it('ne plante pas si tabs est vide', () => {
