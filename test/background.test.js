@@ -90,8 +90,8 @@ describe('background.js', () => {
       chrome.runtime.onInstalled.dispatch();
       expect(chrome.action.disable.calls.length).toBeGreaterThan(0);
       expect(chrome.action.setIcon.calls.length).toBeGreaterThan(2);
-      expect(chrome.action.setIcon.calls[0][0]).toEqual({ tabId: 1, path: { 48: 'icons/icon48-green.png' } });
-      expect(chrome.action.setIcon.calls[1][0]).toEqual({ tabId: 2, path: { 48: 'icons/icon48-tmdb-green.png' } });
+      expect(chrome.action.setIcon.calls[0][0]).toEqual({ tabId: 1, path: { 48: 'icons/icon48-red.png' } });
+      expect(chrome.action.setIcon.calls[1][0]).toEqual({ tabId: 2, path: { 48: 'icons/icon48-tmdb-red.png' } });
       expect(chrome.action.setIcon.calls[2][0]).toEqual({ tabId: 3, path: { 48: 'icons/icon48-red.png' } });
     });
 
