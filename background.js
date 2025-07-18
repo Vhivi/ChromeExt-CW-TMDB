@@ -63,8 +63,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
   const tmdbUrl = generateTMDBUrl(tab.url);
   const cwUrl = generateCaptainWatchUrl(tab.url);
-  const isTMDB = !!tmdbUrl;
-  const isCaptainWatch = !!cwUrl;
+  const isTMDB = !!cwUrl;
+  const isCaptainWatch = !!tmdbUrl;
   if (isCaptainWatch || isTMDB) {
     chrome.action.enable(tabId);
     updateIcon(tabId, true, isTMDB);
@@ -79,8 +79,8 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.tabs.query({}, (tabs) => {
     for (const tab of tabs) {
       if (tab.id) {
-        const tmdbUrl = tab.url && generateTMDBUrl(tab.url);
-        const isTMDB = !!tmdbUrl;
+        const cwUrl = tab.url && generateCaptainWatchUrl(tab.url);
+        const isTMDB = !!cwUrl;
         updateIcon(tab.id, false, isTMDB);
       }
     }
