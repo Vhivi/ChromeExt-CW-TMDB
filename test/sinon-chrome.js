@@ -48,6 +48,7 @@ const chrome = {
   },
   flush: function() {
     chrome.tabs.create.reset();
+    chrome.tabs.query.reset();
     chrome.action.setIcon.reset();
     chrome.action.enable.reset();
     chrome.action.disable.reset();
