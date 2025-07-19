@@ -9,7 +9,7 @@
     "release": "standard-version --dry-run"
   },
   "keywords": [],
-  "author": "",
+  "author": "Vhivi",
   "license": "MIT",
   "devDependencies": {
     "jest": "^30.0.4",
