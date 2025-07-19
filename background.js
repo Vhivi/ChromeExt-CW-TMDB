@@ -58,13 +58,26 @@ chrome.action.onClicked.addListener(async (tab) => {
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  // Ignore les onglets sans URL
   if (!tab.url) {
     return;
   }
+  /**
+   * L’URL TMDB ou CaptainWatch générée pour l’onglet courant.
+   * @type {string|null}
+   */
   const tmdbUrl = generateTMDBUrl(tab.url);
   const cwUrl = generateCaptainWatchUrl(tab.url);
+  // Si l'URL générée est pour CaptainWatch, alors c'est une page TMDB
   const isTMDB = !!cwUrl;
+  // Si l'URL générée est pour TMDB, alors c'est une page CaptainWatch
   const isCaptainWatch = !!tmdbUrl;
+  /**
+   * Met à jour l'icône et l'état du bouton selon l'URL de l'onglet.
+   * @param {number} tabId Identifiant de l'onglet
+   * @param {boolean} isActive True si l'onglet est actif, false sinon
+   * @param {boolean} isTMDB True si l’onglet est une page TMDB, false sinon
+   */
   if (isCaptainWatch || isTMDB) {
     chrome.action.enable(tabId);
     updateIcon(tabId, true, isTMDB);
@@ -75,11 +88,17 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 });
 
 chrome.runtime.onInstalled.addListener(() => {
+  // Désactive le bouton pour tous les onglets
   chrome.action.disable();
+  // Met à jour l'icône pour tous les onglets
+  // Ignore les onglets sans ID
   chrome.tabs.query({}, (tabs) => {
     for (const tab of tabs) {
       if (tab.id) {
+        // Si l'onglet a une URL, on tente de générer l'URL CaptainWatch
         const cwUrl = tab.url && generateCaptainWatchUrl(tab.url);
+        // Si l'URL générée est pour CaptainWatch, alors c'est une page TMDB
+        // Sinon, c'est une page CaptainWatch
         const isTMDB = !!cwUrl;
         updateIcon(tab.id, false, isTMDB);
       }
