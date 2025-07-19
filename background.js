@@ -20,7 +20,7 @@
  */
 importScripts('utils.js');
 
-// Pour forcer  l'utilisation du mock global
+// Permet aux tests Jest d'injecter un mock "chrome" ; ignoré en production
 const chrome = global.chrome || chrome;
 
 // Centralisation des chemins d’icônes
