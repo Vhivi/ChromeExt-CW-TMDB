@@ -1,3 +1,5 @@
+// Ce fichier fournit une implémentation mock minimale de l’API Chrome Extension pour Jest.
+
 function makeSpy() {
   function spy(...args) {
     spy.calls.push(args);
