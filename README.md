@@ -9,6 +9,9 @@
   - [Portée et sécurité](#portée-et-sécurité)
   - [Exemples](#exemples)
   - [Technologies utilisées](#technologies-utilisées)
+  - [Développement et tests](#développement-et-tests)
+    - [Pré-requis](#pré-requis)
+    - [Lancer les tests](#lancer-les-tests)
   - [Structure du projet](#structure-du-projet)
   - [TODO – Étapes de développement](#todo--étapes-de-développement)
   - [Instructions d’installation](#instructions-dinstallation)
@@ -57,7 +60,7 @@ L’extension n’est active et n’a accès qu’aux pages des domaines suivant
   - `https://www.themoviedb.org/tv/*`
   - `https://www.themoviedb.org/movie/*`
   - `https://www.themoviedb.org/person/*`
-  
+
 **Remarque** : L’extension ne collecte ni ne stocke aucune donnée utilisateur. Pas de popup, pas d’options, pas de stockage utilisateur.
 Cela garantit que l’extension ne fonctionne que sur ces URLs et ne collecte ni n’interagit avec d’autres sites ou données.
 
@@ -78,6 +81,21 @@ Cela garantit que l’extension ne fonctionne que sur ces URLs et ne collecte ni
 - JavaScript (ES6+)
 - Icônes verte et rouge pour l’état actif/inactif (dossier `icons`)
 - Jest pour les tests unitaires automatisés (logique métier et background)
+
+## Développement et tests
+
+### Pré-requis
+
+- Node.js 18 ou version supérieure (v20 recommandé)
+
+### Lancer les tests
+
+  ```bash
+  npm install
+  npm test
+  ```
+
+`npm install` installe les dépendances et `npm test` exécute la suite de tests Jest.
 
 ## Structure du projet
 
