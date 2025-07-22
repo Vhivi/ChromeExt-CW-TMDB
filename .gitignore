@@ -10,6 +10,7 @@ package-lock.json
 JEST.md
 # Fichiers système
 Thumbs.db
-# Ignorer la documentation et les fichiers d'orientation afin d'éviter les transferts accidentels d'instructions internes.
+# Ignorer la documentation et les fichiers d'orientation afin d'éviter les
+# transferts accidentels d'instructions internes.
 *-instructions.md
 guidance/
