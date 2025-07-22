@@ -85,4 +85,4 @@ Permettre la conversion rapide et fiable d’URLs entre CaptainWatch et The Movi
 
 ## Licence
 
-MIT – Voir le fichier LICENSE.
+MIT – Voir le fichier [LICENSE](LICENSE).
