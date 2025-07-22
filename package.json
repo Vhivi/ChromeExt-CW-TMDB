@@ -6,13 +6,13 @@
   "scripts": {
     "test": "jest",
     "sync-version": "node sync-version.js",
-    "release": "standard-version --dry-run"
+    "release": "commit-and-tag-version --dry-run"
   },
   "keywords": [],
   "author": "Vhivi",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^30.0.4",
-    "standard-version": "^9.5.0"
+    "commit-and-tag-version": "^12.5.1",
+    "jest": "^30.0.4"
   }
 }
