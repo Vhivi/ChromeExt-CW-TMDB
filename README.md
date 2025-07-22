@@ -38,7 +38,7 @@ Permettre la conversion rapide et fiable d’URLs entre CaptainWatch et The Movi
 
 ## Installation (mode développeur)
 
-1. Téléchargez la dernière release `.zip` depuis [GitHub Releases](https://github.com/Vhivi/ChromeExt-CW-TMDB/releases/latest).
+1. Téléchargez la dernière release `.zip` depuis la page [Releases](https://github.com/Vhivi/ChromeExt-CW-TMDB/releases/latest).
 2. Décompressez l’archive.
 3. Ouvrez la page des extensions de votre navigateur :  
    - Chrome : `chrome://extensions/`  
