@@ -8,7 +8,6 @@ npm-debug.log*
 package-lock.json
 # Fichiers temporaires et de test
 JEST.md
-ext/
 # Fichiers système
 Thumbs.db
 # Ignorer la documentation et les fichiers d'orientation afin d'éviter les transferts accidentels d'instructions internes.
