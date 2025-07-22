@@ -38,17 +38,30 @@ Permettre la conversion rapide et fiable d’URLs entre CaptainWatch et The Movi
 
 ## Installation (mode développeur)
 
-1. Téléchargez la dernière release `.zip` depuis [GitHub Releases](https://github.com/Vhivi/ChromeExt-CW-TMDB/releases/latest)
-2. Décompressez l’archive
+1. Téléchargez la dernière release `.zip` depuis [GitHub Releases](https://github.com/Vhivi/ChromeExt-CW-TMDB/releases/latest).
+2. Décompressez l’archive.
 3. Ouvrez la page des extensions de votre navigateur :  
    - Chrome : `chrome://extensions/`  
    - Brave : `brave://extensions/`  
    - Edge : `edge://extensions/`
-4. Activez le « Mode développeur »
-5. Cliquez sur « Charger l’extension non empaquetée » et sélectionnez le dossier décompressé
-6. L’extension apparaît dans la liste, activez-la si besoin
-7. Épinglez l’icône pour un accès rapide
-8. L’icône est rouge (inactive) hors CaptainWatch/TMDB, verte (active) sur une page valide
+4. Activez le « Mode développeur » (généralement en haut à droite).
+
+   ![Mode développeur](screenshots/chrome-dev-mode.jpg)
+5. Cliquez sur « Charger l’extension non empaquetée » et sélectionnez le dossier décompressé.
+
+   ![Charger l’extension](screenshots/chrome-load.jpg)
+6. L’extension apparaît dans la liste avec son icône. Assurez-vous qu’elle est activée.
+
+   ![Extension activée](screenshots/chrome-activate.jpg)
+7. Épinglez l’icône de l’extension dans la barre d’outils pour un accès rapide.
+
+   ![Barre d’outils](screenshots/chrome-pin.jpg)
+8. Profitez de l’extension ! En dehors des pages CaptainWatch et TMDB, l’icône sera rouge et l'extension inactive.
+
+   ![Extension inactive](screenshots/chrome-enjoy.jpg)
+9. Sur une page valide, elle deviendra verte et cliquable.
+
+   ![Extension active](screenshots/chrome-click.jpg)
 
 ## Utilisation
 
