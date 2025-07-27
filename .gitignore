@@ -6,6 +6,7 @@ npm-debug.log*
 .env
 .vscode/
 package-lock.json
+coverage/
 # Fichiers temporaires et de test
 JEST.md
 # Fichiers système
