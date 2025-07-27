@@ -1,21 +1,26 @@
-const utils = require('../utils');
 
-// Injection globale pour simuler l'environnement extension
-global.chrome = require('./sinon-chrome');
+let utils;
+let sinonChrome;
 
-// Mock importScripts pour simuler l'injection des fonctions utilitaires
-global.importScripts = function(path) {
-  if (path === 'utils.js') {
-    global.generateTMDBUrl = utils.generateTMDBUrl;
-    global.generateCaptainWatchUrl = utils.generateCaptainWatchUrl;
-    // Ajoute d'autres exports si nécessaire
-  }
-};
+async function setupGlobals() {
+  utils = await import('../utils.js');
+  sinonChrome = (await import('./sinon-chrome.mjs')).default || (await import('./sinon-chrome.mjs'));
+  global.chrome = sinonChrome;
+  global.importScripts = function(path) {
+    if (path === 'utils.js') {
+      global.generateTMDBUrl = utils.generateTMDBUrl;
+      global.generateCaptainWatchUrl = utils.generateCaptainWatchUrl;
+      // Ajoute d'autres exports si nécessaire
+    }
+  };
+  await import('../background.js');
+}
 
-// Import du script à tester (injecte les listeners)
-await import('../background.js');
 
 describe('background.js', () => {
+  beforeAll(async () => {
+    await setupGlobals();
+  });
   beforeEach(() => {
     chrome.flush();
   });
