@@ -17,7 +17,8 @@
     "https://www.themoviedb.org/person/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
   "action": {
     "default_title": "Aller sur TMDB depuis CaptainWatch ou vice-versa"
