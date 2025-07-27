@@ -13,6 +13,10 @@
   "author": "Vhivi",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/plugin-syntax-import-assertions": "^7.27.1",
+    "@babel/preset-env": "^7.28.0",
+    "babel-jest": "^30.0.5",
     "commit-and-tag-version": "^12.5.1",
     "jest": "^30.0.4"
   }
