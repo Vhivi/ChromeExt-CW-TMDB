@@ -13,7 +13,7 @@ global.importScripts = function(path) {
 };
 
 // Import du script à tester (injecte les listeners)
-require('../background.js');
+await import('../background.js');
 
 describe('background.js', () => {
   beforeEach(() => {
