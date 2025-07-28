@@ -142,3 +142,13 @@ if (typeof window !== 'undefined') {
 if (typeof self !== 'undefined') {
   Object.assign(self, exported);
 }
+
+// Export ES Module explicite
+export {
+  mapTypeToTMDB,
+  generateTMDBUrl,
+  extractTypeAndIdFromUrl,
+  mapTypeToCaptainWatch,
+  generateCaptainWatchUrl,
+  mapType
+};
