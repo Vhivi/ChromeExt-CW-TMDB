@@ -18,10 +18,8 @@
  *
  * @file background.js
  */
-import { generateTMDBUrl, generateCaptainWatchUrl } from './utils.js';
 
-// Permet aux tests Jest d'injecter un mock "chrome" ; ignoré en production
-const chrome = global.chrome || chrome;
+import { generateTMDBUrl, generateCaptainWatchUrl } from './utils.js';
 
 // Centralisation des chemins d’icônes
 const ICONS = {
